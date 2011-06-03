@@ -14,13 +14,24 @@ import org.w3c.dom.NodeList;
 public class RegistryTest {
 
   @Test
-  public void testFindXsams() throws Exception {
+  public void testFindTapXsams() throws Exception {
     Registry sut = new Registry();
     Document results = sut.findTapXsams();
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
     assertNotNull(nl);
-    assertTrue(nl.getLength() > 1);
+    assertTrue("No services found", nl.getLength() > 1);
+  }
+
+  @Test
+  public void testFindVamdcTap() throws Exception {
+    // Only expect to find these in the dev registry for the next few weeks - GTR 2011-06-02
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
+    Document results = sut.findVamdcTap();
+    assertNotNull(results);
+    NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
+    assertNotNull(nl);
+    assertTrue("No services found", nl.getLength() > 1);
   }
 
   @Test
@@ -30,7 +41,7 @@ public class RegistryTest {
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
     assertNotNull(nl);
-    assertTrue(nl.getLength() > 1);
+    assertTrue("No services found", nl.getLength() > 1);
   }
 
   @Test
@@ -40,7 +51,7 @@ public class RegistryTest {
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
     assertNotNull(nl);
-    assertTrue(nl.getLength() > 1);
+    assertTrue("No services found", nl.getLength() > 1);
   }
 
   @Test
@@ -60,7 +71,7 @@ public class RegistryTest {
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
     assertNotNull(nl);
-    assertTrue(nl.getLength() > 1);
+    assertTrue("No services found", nl.getLength() > 1);
   }
 
   @Test
@@ -71,7 +82,7 @@ public class RegistryTest {
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
     assertNotNull(nl);
-    assertTrue(nl.getLength() > 1);
+    assertTrue("No services found", nl.getLength() > 1);
   }
 
   @Test
@@ -79,26 +90,29 @@ public class RegistryTest {
     Registry sut = new Registry();
     List<String> results = sut.findIvornsByCapability(Registry.TAP_XSAMS_ID);
     assertNotNull(results);
-    assertTrue(results.size() > 1);
+    assertTrue("No services found", results.size() > 1);
   }
 
   @Test
   public void findTapXsamsByXquery() throws Exception {
     System.out.println("\n\nfindTapXsamsByXquery()");
     Registry sut = new Registry();
+    // This query uses lower case for the returnable because that' what the
+    // nodes are using right now. It should be mixed case as in the dictionary.
     String query =
         "declare namespace ri='http://www.ivoa.net/xml/RegistryInterface/v1.0'; " +
         "for $x in //ri:Resource " +
         "where $x/capability[@standardID='ivo://vamdc/std/TAP-XSAMS' " +
-        "and returnable='RadTransWavelengthExperimentalValue'] " +
+        "and returnable='radtranswavelengthexperimentalvalue'] " +
         "and $x/@status='active' " +
         "return $x/capability[@standardID='ivo://vamdc/std/TAP-XSAMS']/interface/accessURL";
     Document results = sut.executeXquery(query);
     assertNotNull(results);
+    System.out.println("\nFindTapXsamsByQuery()");
     Registry.serializeToStdout(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("accessURL");
     assertNotNull(nl);
-    assertTrue(nl.getLength() > 1);
+    assertTrue("No services found", nl.getLength() > 0);
   }
 
   @Test

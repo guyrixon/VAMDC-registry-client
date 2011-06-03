@@ -60,6 +60,11 @@ public class Registry {
   /**
    * Standard identifier for the class of services of interest.
    */
+  public final static String VAMDC_TAP_ID = "ivo://vamdc/std/VAMDC-TAP";
+
+  /**
+   * Standard identifier for the class of services of interest.
+   */
   public final static String TAP_ID = "ivo://ivoa.net/std/TAP";
 
   /**
@@ -109,6 +114,7 @@ public class Registry {
    *
    * @return The registrations, combined in one document.
    * @throws RegistryException If the registry cannot fulfill the request.
+   * @deprecated Use {@link #findVamdcTap} instead.
    */
   public Document findTapXsams() throws RegistryException {
     SimpleConfig.setProperty("return.soapbody", "true");
@@ -117,6 +123,26 @@ public class Registry {
         "declare namespace ri='http://www.ivoa.net/xml/RegistryInterface/v1.0';" +
         "for $x in //ri:Resource " +
         "where $x/capability[@standardID='" + TAP_XSAMS_ID + "'] " +
+        "and $x/@status='active' " +
+        "return $x";
+    return reggie.xquerySearch(query);
+  }
+
+  /**
+   * Supplies the registration documents for all services registered with
+   * a TAP-XSAMS capability. All these documents are combined in one document,
+   * with the registrations as first-level children of the latter.
+   *
+   * @return The registrations, combined in one document.
+   * @throws RegistryException If the registry cannot fulfill the request.
+   */
+  public Document findVamdcTap() throws RegistryException {
+    SimpleConfig.setProperty("return.soapbody", "true");
+    QueryRegistry reggie = new QueryRegistry(registryEndpoint());
+    String query =
+        "declare namespace ri='http://www.ivoa.net/xml/RegistryInterface/v1.0';" +
+        "for $x in //ri:Resource " +
+        "where $x/capability[@standardID='" + VAMDC_TAP_ID + "'] " +
         "and $x/@status='active' " +
         "return $x";
     return reggie.xquerySearch(query);
