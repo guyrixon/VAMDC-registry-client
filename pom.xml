@@ -27,6 +27,15 @@
     <name>Virtual Atomic and Molecular Data Centre</name>
     <url>http://vamdc.eu/</url>
   </organization>
+  
+  
+  <developers>
+    <developer>
+      <email>gtr@ast.cam.ac.uk</email>
+      <id>guyrixon</id>
+      <name>Guy Rixon</name>
+    </developer>  
+  </developers>
 
   <scm>
     <url>https://github.com/guyrixon/VAMDC-registry-client</url>
