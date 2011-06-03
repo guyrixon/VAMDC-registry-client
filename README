@@ -1,0 +1,12 @@
+A Java client-library for simplified access to the VAMDC registry of resources.
+
+This library wraps the AstroGrid delegate for the IVOA registry-access protocol
+and adds higher-level features.
+
+The code in this source-repository is a Maven project. Dependencies can be
+taken from the Maven repository at
+
+http://ag03.ast.cam.ac.uk/nexus/content/groups/public/
+
+which provides both the "standard" artifacts from the Maven central repository
+and the AstroGrid artifacts.
