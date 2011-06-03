@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project>
+  <version position="right"/>
+  <body>
+    <menu name="Overview">
+      <item name="Download" href="http://ag03.ast.cam.ac.uk/nexus/content/groups/public/eu/vamdc/registry-client/${project.version}/registry-client-${project.version}.jar"/>
+      <item name="Release notes" href="release-notes.html"/>
+    </menu>
+    <menu ref="reports"/> 
+  </body>
+</project>

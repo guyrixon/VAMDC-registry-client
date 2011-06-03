@@ -1,0 +1,16 @@
+  ---
+  Release notes for VAMDC registry-client library
+  ---
+
+Version 2.0, released in November 2010
+
+  The client now distinguishes the development registry from the release
+  registry. The development registry is continually updated during VAMDC
+  development and contains registrations of prototype services. The release
+  registry contains only registrations from VAMDC's annual releases. The
+  registry is chosen by constructor arguments.
+
+Version 1.0, released c. October 2010
+
+  The initial release. The client knows only one registry, the VAMDC release
+  registry.
