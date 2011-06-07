@@ -31,7 +31,7 @@ public class RegistryTest {
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
     assertNotNull(nl);
-    assertTrue("No services found", nl.getLength() > 1);
+    assertTrue("No services found", nl.getLength() > 0);
   }
 
   @Test
