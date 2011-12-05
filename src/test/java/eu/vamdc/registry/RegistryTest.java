@@ -15,7 +15,7 @@ public class RegistryTest {
 
   @Test
   public void testFindTapXsams() throws Exception {
-    Registry sut = new Registry();
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
     Document results = sut.findTapXsams();
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
@@ -36,7 +36,7 @@ public class RegistryTest {
 
   @Test
   public void testFindTap() throws Exception {
-    Registry sut = new Registry();
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
     Document results = sut.findTap();
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
@@ -46,7 +46,7 @@ public class RegistryTest {
 
   @Test
   public void testFindWebSites() throws Exception {
-    Registry sut = new Registry();
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
     Document results = sut.findWebSites();
     assertNotNull(results);
     NodeList nl = results.getDocumentElement().getElementsByTagName("ri:Resource");
@@ -56,7 +56,7 @@ public class RegistryTest {
 
   @Test
   public void testExecuteXquery() throws Exception {
-    Registry sut = new Registry();
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
     // "Find all the registrations with a web-browser interface".
     // We expect the live registry to have at least one.
     String query =
@@ -76,7 +76,7 @@ public class RegistryTest {
 
   @Test
   public void findResourcesByCapability() throws Exception {
-    Registry sut = new Registry();
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
     Document results = sut.findResourcesByCapability(Registry.TAP_XSAMS_ID);
     Registry.serializeToStdout(results);
     assertNotNull(results);
@@ -87,8 +87,8 @@ public class RegistryTest {
 
   @Test
   public void findIvornsByCapability() throws Exception {
-    Registry sut = new Registry();
-    List<String> results = sut.findIvornsByCapability(Registry.TAP_XSAMS_ID);
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
+    List<String> results = sut.findIvornsByCapability(Registry.VAMDC_TAP_ID);
     assertNotNull(results);
     assertTrue("No services found", results.size() > 1);
   }
@@ -96,7 +96,7 @@ public class RegistryTest {
   @Test
   public void findTapXsamsByXquery() throws Exception {
     System.out.println("\n\nfindTapXsamsByXquery()");
-    Registry sut = new Registry();
+    Registry sut = new Registry(Registry.DEVELOPMENT_REGISTRY_ENDPOINT);
     // This query uses lower case for the returnable because that' what the
     // nodes are using right now. It should be mixed case as in the dictionary.
     String query =
